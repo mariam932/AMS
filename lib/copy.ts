@@ -41,6 +41,7 @@ export const copy = {
       "Continuous innovation in regenerative aesthetics",
     ],
     techKicker: "Our Technologies",
+    techTitle: "Advanced regenerative solutions for modern aesthetics",
     techBody:
       "Devoté introduces regenerative aesthetic technologies powered by plant-derived exosomes, biomimetic peptides, growth factors, collagen biostimulators, and next-generation lifting systems.",
     viewMore: "View More",
@@ -176,6 +177,7 @@ export const copy = {
       "ابتكار مستمر في مجال الطب التجميلي التجديدي",
     ],
     techKicker: "تقنيات ديڤوتيه",
+    techTitle: "حلول تجديدية متقدمة للطب التجميلي الحديث",
     techBody:
       "تعتمد حلول ديڤوتيه على أحدث التقنيات في مجال الطب التجميلي التجديدي. تشمل هذه التقنيات: الإكسوزومات النباتية الببتيدات الحيوية المحاكية عوامل النمو الحيوية محفزات الكولاجين المتقدمة تقنيات شد البشرة بالخيوط المتقدمة",
     viewMore: "عرض المزيد",

@@ -17,7 +17,7 @@ export default function HomeMotion() {
     }
 
     const sections = [...main.querySelectorAll<HTMLElement>(
-      ":scope > .page-hero-home, :scope > .section, :scope > .stats-section",
+      ":scope > .section, :scope > .stats-section",
     )];
     const cards = [...main.querySelectorAll<HTMLElement>(
       ".stats-grid > *, .why-list > *, .product-grid > *, .event-preview-list > *",
@@ -41,6 +41,12 @@ export default function HomeMotion() {
     );
 
     targets.forEach((element) => observer.observe(element));
+    targets.forEach((element) => {
+      const bounds = element.getBoundingClientRect();
+      if (bounds.top >= window.innerHeight || bounds.bottom <= 0) return;
+      element.dataset.revealState = "visible";
+      observer.unobserve(element);
+    });
 
     return () => {
       observer.disconnect();

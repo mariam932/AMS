@@ -8,6 +8,7 @@ export type BlogPost = {
   date: string;
   excerpt: string;
   content: string;
+  image?: string;
 };
 
 const arMeta: Record<string, { title: string; excerpt: string }> = {

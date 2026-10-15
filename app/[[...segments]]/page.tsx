@@ -48,15 +48,6 @@ export default async function RoutePage({ params }: PageProps) {
         <SitePage locale={locale} segments={segments} />
       </main>
       <Footer locale={locale} />
-      <a
-        className="floating-whatsapp"
-        href="https://wa.me/966543451886"
-        target="_blank"
-        rel="noreferrer"
-        aria-label={locale === "ar" ? "تواصل عبر واتساب" : "Contact Devoté on WhatsApp"}
-      >
-        <span aria-hidden="true">✳</span>
-      </a>
     </div>
   );
 }

@@ -3,17 +3,29 @@ import { site } from "../../lib/site";
 import type { Locale } from "../../lib/types";
 import { localizePath } from "../../lib/paths";
 import { t } from "../../lib/copy";
+import { navLinks } from "../../lib/siteData";
+import SocialIcon from "../ui/SocialIcon";
 
 export default function Footer({ locale }: { locale: Locale }) {
   const copy = t(locale);
-  const navigation = [
-    [copy.about, "/about-us"],
-    [copy.portfolio, "/our-portfolio"],
-    [copy.events, "/events"],
-    [copy.academy, "/devote-academy"],
-    [copy.blog, "/blog"],
-    [copy.contact, "/contact-us"],
-  ];
+  const navigation = navLinks
+    .filter((item) => item.href !== "/")
+    .map((item) => {
+      const label =
+        item.key === "about"
+          ? copy.about
+          : item.key === "portfolio"
+            ? copy.portfolio
+            : item.key === "events"
+              ? copy.events
+              : item.key === "academy"
+                ? copy.academy
+                : item.key === "blog"
+                  ? copy.blog
+                  : copy.contact;
+
+      return [label, item.href] as const;
+    });
 
   return (
     <footer className="site-footer">
@@ -25,8 +37,15 @@ export default function Footer({ locale }: { locale: Locale }) {
           <p>{copy.footerTagline}</p>
           <div className="social-links" aria-label={locale === "ar" ? "وسائل التواصل الاجتماعي" : "Social media"}>
             {site.social.map((social) => (
-              <a href={social.href} key={social.name} target="_blank" rel="noreferrer">
-                {social.name}
+              <a
+                aria-label={social.name}
+                href={social.href}
+                key={social.name}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <SocialIcon name={social.name} />
+                <span className="sr-only">{social.name}</span>
               </a>
             ))}
           </div>

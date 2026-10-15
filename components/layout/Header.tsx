@@ -8,6 +8,8 @@ import { localizePath, switchLocalePath } from "../../lib/paths";
 import { products } from "../../lib/products";
 import { t } from "../../lib/copy";
 import { site } from "../../lib/site";
+import { navLinks, routeGroups } from "../../lib/siteData";
+import SocialIcon from "../ui/SocialIcon";
 
 type HeaderProps = {
   locale: Locale;
@@ -17,15 +19,31 @@ type HeaderProps = {
 export default function Header({ locale, currentPath }: HeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const copy = t(locale);
-  const links = [
-    { href: "/", label: copy.home },
-    { href: "/about-us", label: copy.about },
-    { href: "/our-portfolio", label: copy.portfolio },
-    { href: "/events", label: copy.events },
-    { href: "/devote-academy", label: copy.academy },
-    { href: "/blog", label: copy.blog },
-    { href: "/contact-us", label: copy.contact },
-  ];
+  const normalizedCurrentPath = currentPath.replace(/^\/ar(?=\/|$)/, "").replace(/\/+$/, "") || "/";
+  const currentRoute = normalizedCurrentPath.split("/").filter(Boolean)[0];
+  const links = navLinks.map((item) => ({
+    ...item,
+    isActive:
+      item.href === "/"
+        ? normalizedCurrentPath === "/"
+        : normalizedCurrentPath === item.href ||
+          normalizedCurrentPath.startsWith(`${item.href}/`) ||
+          (currentRoute !== undefined && routeGroups[item.key].includes(currentRoute)),
+    label:
+      item.key === "home"
+        ? copy.home
+        : item.key === "about"
+          ? copy.about
+          : item.key === "portfolio"
+            ? copy.portfolio
+            : item.key === "events"
+              ? copy.events
+              : item.key === "academy"
+                ? copy.academy
+                : item.key === "blog"
+                  ? copy.blog
+                  : copy.contact,
+  }));
 
   return (
     <header className="site-header">
@@ -47,13 +65,7 @@ export default function Header({ locale, currentPath }: HeaderProps) {
                 rel="noreferrer"
                 target="_blank"
               >
-                {social.name === "Instagram"
-                  ? "ig"
-                  : social.name === "TikTok"
-                    ? "♪"
-                    : social.name === "LinkedIn"
-                      ? "in"
-                      : social.name.slice(0, 1).toLowerCase()}
+                <SocialIcon name={social.name} />
               </a>
             ))}
           </div>
@@ -69,8 +81,8 @@ export default function Header({ locale, currentPath }: HeaderProps) {
           <Image
             src="/brand/logo-gold.svg"
             alt={locale === "ar" ? "ديڤوتيه للتجميل" : "Devoté Aesthetics"}
-            width={190}
-            height={78}
+            width={280}
+            height={115}
             priority
           />
         </Link>
@@ -83,6 +95,7 @@ export default function Header({ locale, currentPath }: HeaderProps) {
             <div className="nav-item" key={item.href}>
               <Link
                 href={localizePath(locale, item.href)}
+                aria-current={item.isActive ? "page" : undefined}
                 onClick={() => setMenuOpen(false)}
               >
                 {item.label}

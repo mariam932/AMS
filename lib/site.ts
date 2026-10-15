@@ -20,7 +20,7 @@ export const site = {
       href: "https://www.snapchat.com/@devotemena?locale=en_EG&sid=1db0dd810dfe43129fe72afe8ff9ad12&share_id=LvcSQ33-SCWlg4zCajD60A&invite_id=bu2-CRH7",
     },
     { name: "LinkedIn", href: "https://www.linkedin.com/company/102479474/" },
-  ],
+  ] as const,
 };
 
 export const locales = ["en", "ar"] as const;
